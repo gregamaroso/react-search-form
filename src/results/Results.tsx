@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Result } from '../store/results';
-import { useRepos } from '../store/results';
+import { useResults, doSearchRepos } from '../store/results';
 import styles from './Results.module.css';
 
 interface IResultTableRow {
@@ -17,7 +17,7 @@ const ResultTableRow: React.FC<IResultTableRow> = ({
   <tr>
     <td>{result.full_name}</td>
     <td>{result.language}</td>
-    <td>{result.count}</td>
+    <td>{result.stars}</td>
   </tr>
 );
 
@@ -38,12 +38,27 @@ const ResultTable: React.FC<IResultTable> = ({ results }: IResultTable) => (
   </table>
 );
 
-const LoadMore = () => <button>Load More</button>;
+const LoadMore = () => {
+  const {
+    dispatch,
+    state: { term, page },
+  } = useResults();
+
+  const handleClick = () => {
+    doSearchRepos({
+      dispatch,
+      term,
+      page: page + 1,
+    });
+  };
+
+  return <button onClick={handleClick}>Load More</button>;
+};
 
 export function Results() {
   const {
     state: { results },
-  } = useRepos();
+  } = useResults();
 
   return (
     <>

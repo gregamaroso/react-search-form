@@ -1,11 +1,11 @@
 import { useRef } from 'react';
-import { useRepos, doSearchRepos } from '../store/results';
+import { useResults, doSearchRepos } from '../store/results';
 import styles from './Search.module.css';
 
 export function Search() {
   const inputRef = useRef<any>(null);
   const buttonRef = useRef<any>(null);
-  const { dispatch } = useRepos();
+  const { dispatch } = useResults();
 
   const handleInputChange = () => {
     const term = inputRef.current.value;
@@ -20,7 +20,11 @@ export function Search() {
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
-    doSearchRepos(dispatch, inputRef.current.value);
+    doSearchRepos({
+      dispatch,
+      term: inputRef.current.value,
+      page: 1,
+    });
   };
 
   return (

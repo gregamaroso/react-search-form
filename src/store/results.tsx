@@ -6,7 +6,7 @@ export type Result = {
   url: string;
   full_name: string;
   language: string;
-  count: number;
+  stars: number;
 };
 
 export type Term = string;
@@ -17,18 +17,25 @@ type ActionAddResults = {
     term: Term;
     results: Result[];
     total_count: number;
+    page: number;
   };
 };
 
 type Action = ActionAddResults;
 type Dispatch = (action: Action) => void;
-type State = { term: Term; results: Result[]; total_count: number };
+type State = {
+  term: Term;
+  results: Result[];
+  total_count: number;
+  page: number;
+};
 type CartProviderProps = { children: React.ReactNode };
 
 const initialState: State = {
   term: '',
   results: [],
   total_count: 0,
+  page: 1,
 };
 
 const ResultsContext = createContext<
@@ -39,14 +46,15 @@ function resultsReducer(state: State, action: Action) {
   switch (action.type) {
     case 'add results': {
       const {
-        payload: { term, results, total_count },
+        payload: { term, results, total_count, page },
       } = action;
 
       return {
         ...state,
         term,
-        results,
+        results: page > 1 ? [...state.results, ...results] : [...results],
         total_count,
+        page,
       };
     }
 
@@ -65,32 +73,41 @@ function ResultsProvider({ children }: CartProviderProps) {
   );
 }
 
-function useRepos() {
+function useResults() {
   const context = useContext(ResultsContext);
 
   if (context === undefined) {
-    throw new Error(`useRepos must be used within a ReposProvider`);
+    throw new Error(`useResults must be used within a ReposProvider`);
   }
 
   return context;
 }
 
-async function doSearchRepos(dispatch: Dispatch, term: string) {
+async function doSearchRepos({
+  dispatch,
+  term,
+  page = 1,
+}: {
+  dispatch: Dispatch;
+  term: string;
+  page?: number;
+}) {
   try {
-    const { items, total_count } = await searchGithub(term);
+    const { items, total_count } = await searchGithub(term, page);
 
     dispatch({
       type: 'add results',
       payload: {
         term,
-        results: items.map(({ id, url, full_name, language, count }) => ({
+        results: items.map(({ id, url, full_name, language, stars }) => ({
           id,
           url,
           full_name,
           language,
-          count,
+          stars,
         })),
         total_count,
+        page,
       },
     });
   } catch (error) {
@@ -98,4 +115,4 @@ async function doSearchRepos(dispatch: Dispatch, term: string) {
   }
 }
 
-export { ResultsProvider, useRepos, doSearchRepos };
+export { ResultsProvider, useResults, doSearchRepos };
