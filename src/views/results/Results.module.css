@@ -1,3 +1,26 @@
 .results {
+  table-layout: fixed;
+  border-collapse: collapse;
   border: 1px solid #ccc;
+  margin: 0 0 20px;
+  width: 100%;
+}
+
+.results thead,
+.results td {
+  padding: 10px;
+}
+
+.results thead {
+  background-color: #f1f1f1;
+  font-weight: bold;
+}
+
+.results td {
+  font-size: 0.8rem;
+}
+
+button {
+  line-height: var(--form-line-height);
+  padding: var(--form-element-padding);
 }

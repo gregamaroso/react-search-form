@@ -2,10 +2,17 @@
   padding: 0;
 }
 
-.form-input {
-  padding: 0;
+.form input,
+.form button {
+  box-sizing: border-box;
+  line-height: var(--form-line-height);
 }
 
-.form-button {
-  padding: 0;
+.form input {
+  padding: 0 10px;
+}
+
+.form button {
+  padding: var(--form-element-padding);
+  margin-left: 20px;
 }

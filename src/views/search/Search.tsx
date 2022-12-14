@@ -33,7 +33,6 @@ export function Search() {
         type="text"
         placeholder="Search Repositories"
         onChange={handleInputChange}
-        className={styles['form-input']}
         ref={inputRef}
       />
 
