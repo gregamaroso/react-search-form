@@ -1,0 +1,12 @@
+.app-container {
+  display: flex;
+  margin: 50px;
+}
+
+.app-grid {
+  padding: 20px;
+}
+
+.app-cart {
+  padding: 20px;
+}
