@@ -22,13 +22,16 @@ type ActionAddResults = {
 };
 
 type Action = ActionAddResults;
+
 type Dispatch = (action: Action) => void;
+
 type State = {
   term: Term;
   results: Result[];
   total_count: number;
   page: number;
 };
+
 type CartProviderProps = { children: React.ReactNode };
 
 const initialState: State = {

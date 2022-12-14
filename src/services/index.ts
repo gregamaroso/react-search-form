@@ -21,7 +21,7 @@ export async function searchGithub(
   term: Term,
   page: number
 ): Promise<ISearchResponse> {
-  const resultsPerPage = 5;
+  const resultsPerPage = 2;
 
   const response = await fetch(
     `https://api.github.com/search/repositories?q=${term}&sort=stars&order=desc&per_page=${resultsPerPage}&page=${page}`

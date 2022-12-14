@@ -11,15 +11,20 @@ interface IResultTable {
   results: Result[];
 }
 
-const ResultTableRow: React.FC<IResultTableRow> = ({
-  result,
-}: IResultTableRow) => (
-  <tr>
-    <td>{result.full_name}</td>
-    <td>{result.language}</td>
-    <td>{result.stars}</td>
-  </tr>
-);
+const ResultTableRow = React.memo(function ({
+  result: { full_name, language, stars },
+}: IResultTableRow) {
+  const formatStarsCount = (num: number) =>
+    num >= 1000 ? `${Math.floor(num / 1000)}k` : `${num}`;
+
+  return (
+    <tr>
+      <td>{full_name}</td>
+      <td>{language}</td>
+      <td>{formatStarsCount(stars)}</td>
+    </tr>
+  );
+});
 
 const ResultTable: React.FC<IResultTable> = ({ results }: IResultTable) => (
   <table className={styles.results}>
