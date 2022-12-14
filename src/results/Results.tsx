@@ -1,30 +1,26 @@
 import React from "react";
 import { useRepos } from "../store/repos";
-import "./cart.css";
+import styles from "./Results.module.css";
 
 type TUnrelatedProps = {
   children: JSX.Element;
 };
 
-// This comnponent is only rendered once since it uses React.memo
 const One = React.memo(function () {
-  console.log("Component 'One' using React.memo");
-
   return <></>;
 });
 
 function Unrelated(props: TUnrelatedProps) {
-  const { state } = useRepos();
-  console.log(`Component 'Unrelated', ${state.count} items in cart`);
+  // const { state } = useRepos();
 
   return <>{props.children}</>;
 }
 
-export function Cart() {
+export function Results() {
   const { state } = useRepos();
 
   return (
-    <div className="cart">
+    <div className={styles.cart}>
       {`${state.count} items in your cart`}
 
       <Unrelated>
@@ -34,4 +30,4 @@ export function Cart() {
   );
 }
 
-export default Cart;
+export default Results;

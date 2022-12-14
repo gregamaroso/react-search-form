@@ -1,17 +1,17 @@
-import React from "react";
-import "./app.css";
+import { Search } from "./search";
+import { Results } from "./results";
 import { ReposProvider } from "./store/repos";
-import { Cart } from "./cart";
-import { Grid } from "./grid";
+import styles from "./App.module.css";
 
 function Layout() {
   return (
-    <div className="app-container">
-      <div className="app-grid">
-        <Grid />
+    <div className={styles["app-container"]}>
+      <div className={styles["app-grid"]}>
+        <Search />
       </div>
-      <div className="app-cart">
-        <Cart />
+
+      <div className={styles["app-cart"]}>
+        <Results />
       </div>
     </div>
   );

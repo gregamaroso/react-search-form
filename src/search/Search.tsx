@@ -1,6 +1,5 @@
-import React from "react";
 import { useRepos } from "../store/repos";
-import "./grid.css";
+import styles from "./Search.module.css";
 
 interface IProduct {
   sku_id: number;
@@ -30,20 +29,20 @@ function Product({ sku_id, name }: IProduct) {
   };
 
   return (
-    <div className="product">
-      <div className="product__name">{name}</div>
+    <div className={styles.product}>
+      <div className={styles.product__name}>{name}</div>
 
       <button onClick={handleClick}>Buy Now</button>
     </div>
   );
 }
 
-export function Grid() {
+export function Search() {
   const Products = products.map(({ sku_id, name }: IProduct) => (
     <Product key={sku_id} sku_id={sku_id} name={name} />
   ));
 
-  return <div className="products">{Products}</div>;
+  return <div className={styles.products}>{Products}</div>;
 }
 
-export default Grid;
+export default Search;
