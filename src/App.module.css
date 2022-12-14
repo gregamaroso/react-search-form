@@ -1,12 +1,11 @@
 .app-container {
-  display: flex;
   margin: 50px;
 }
 
-.app-grid {
+.app-search {
   padding: 20px;
 }
 
-.app-cart {
+.app-results {
   padding: 20px;
 }

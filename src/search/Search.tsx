@@ -1,63 +1,44 @@
-import { useRef } from "React";
-import { useRepos } from "../store/repos";
-import styles from "./Search.module.css";
-
-interface IProduct {
-  sku_id: number;
-  name: string;
-}
-
-const products: IProduct[] = [
-  {
-    sku_id: 111,
-    name: "Hair Gel",
-  },
-  {
-    sku_id: 222,
-    name: "Shampoo",
-  },
-  {
-    sku_id: 333,
-    name: "Conditioner",
-  },
-];
-
-function Product({ sku_id, name }: IProduct) {
-  const { dispatch } = useRepos();
-
-  const handleClick = (): void => {
-    dispatch({ type: "increment", sku_id });
-  };
-
-  return (
-    <div className={styles.product}>
-      <div className={styles.product__name}>{name}</div>
-
-      <button onClick={handleClick}>Buy Now</button>
-    </div>
-  );
-}
+import { useRef } from 'react';
+import { useRepos, doSearchRepos } from '../store/results';
+import styles from './Search.module.css';
 
 export function Search() {
-  const inputRef = useRef(null);
+  const inputRef = useRef<any>(null);
+  const buttonRef = useRef<any>(null);
+  const { dispatch } = useRepos();
 
-  const handleClick = (e: { preventDefault: () => void; }) => {
-    e.preventDefault();
-
+  const handleInputChange = () => {
     const term = inputRef.current.value;
 
-    
+    if (term.length > 0) {
+      buttonRef.current.removeAttribute('disabled');
+    } else {
+      buttonRef.current.setAttribute('disabled', '');
+    }
+  };
+
+  const handleSubmit = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+
+    doSearchRepos(dispatch, inputRef.current.value);
   };
 
   return (
-    <form>
+    <form className={styles.form} onSubmit={handleSubmit}>
       <input
         type="text"
-        placeholder="Name, language..."
+        placeholder="Search Repositories"
+        onChange={handleInputChange}
+        className={styles['form-input']}
         ref={inputRef}
       />
 
-      <button className="button-primary" type="submit" onClick={handleClick}>
+      <button
+        type="submit"
+        className={styles['form-button']}
+        ref={buttonRef}
+        disabled
+      >
         Search
       </button>
     </form>

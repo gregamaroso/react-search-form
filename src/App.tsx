@@ -1,29 +1,25 @@
-import { Search } from "./search";
-import { Results } from "./results";
-import { ReposProvider } from "./store/repos";
-import styles from "./App.module.css";
+import { Search } from './search';
+import { Results } from './results';
+import { ResultsProvider } from './store/results';
+import styles from './App.module.css';
 
-function Layout() {
-  return (
-    <div className={styles["app-container"]}>
-      <div className={styles["app-grid"]}>
-        <Search />
-      </div>
-
-      <div className={styles["app-cart"]}>
-        <Results />
-      </div>
+const Layout = () => (
+  <div className={styles['app-container']}>
+    <div className={styles['app-search']}>
+      <Search />
     </div>
-  );
-}
+
+    <div className={styles['app-results']}>
+      <Results />
+    </div>
+  </div>
+);
 
 function App() {
   return (
-    <>
-      <ReposProvider>
-        <Layout />
-      </ReposProvider>
-    </>
+    <ResultsProvider>
+      <Layout />
+    </ResultsProvider>
   );
 }
 

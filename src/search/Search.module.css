@@ -1,14 +1,11 @@
-.products {
-  display: flex;
+.form {
+  padding: 0;
 }
 
-.product {
-  border: 1px solid #ccc;
-  background-color: #fff;
-  margin: 0 20px 20px;
-  padding: 20px;
+.form-input {
+  padding: 0;
 }
 
-.product__name {
-  padding-bottom: 20px;
+.form-button {
+  padding: 0;
 }
