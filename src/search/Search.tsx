@@ -1,3 +1,4 @@
+import { useRef } from "React";
 import { useRepos } from "../store/repos";
 import styles from "./Search.module.css";
 
@@ -38,11 +39,29 @@ function Product({ sku_id, name }: IProduct) {
 }
 
 export function Search() {
-  const Products = products.map(({ sku_id, name }: IProduct) => (
-    <Product key={sku_id} sku_id={sku_id} name={name} />
-  ));
+  const inputRef = useRef(null);
 
-  return <div className={styles.products}>{Products}</div>;
+  const handleClick = (e: { preventDefault: () => void; }) => {
+    e.preventDefault();
+
+    const term = inputRef.current.value;
+
+    
+  };
+
+  return (
+    <form>
+      <input
+        type="text"
+        placeholder="Name, language..."
+        ref={inputRef}
+      />
+
+      <button className="button-primary" type="submit" onClick={handleClick}>
+        Search
+      </button>
+    </form>
+  );
 }
 
 export default Search;
