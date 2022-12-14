@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { useResults, doSearchRepos } from '../store/results';
+import { useResults, doSearchRepos } from '../../store/results';
 import styles from './Search.module.css';
 
 export function Search() {

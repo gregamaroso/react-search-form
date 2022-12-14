@@ -1,6 +1,6 @@
 import React from 'react';
-import type { Result } from '../store/results';
-import { useResults, doSearchRepos } from '../store/results';
+import type { Result } from '../../store/results';
+import { useResults, doSearchRepos } from '../../store/results';
 import styles from './Results.module.css';
 
 interface IResultTableRow {
